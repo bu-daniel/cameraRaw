@@ -478,15 +478,13 @@
                 } else {
                     _stillRawImageOutput = [AVCapturePhotoOutput new];
                     [_session addOutput:_stillRawImageOutput];
-                    
+
                     _availableRawFormats = [_stillRawImageOutput availableRawPhotoPixelFormatTypes];
-                    
+
                     OSType *availableRawFormat = (((NSNumber *)self.availableRawFormats[0]).unsignedLongValue);
 
-                    
-                    _rawPhotoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:availableRawFormat];
 
-                    [_rawPhotoSettings setHighResolutionPhotoEnabled:YES];
+                    _rawPhotoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:availableRawFormat];
                 }
 
 
@@ -582,9 +580,9 @@
                  [self _processCameraPhoto:image needsPreviewRotation:needsPreviewRotation previewOrientation:previewOrientation];
              });
          }];
-        
+
     } else {
-        
+
          [_stillRawImageOutput capturePhotoWithSettings:_rawPhotoSettings delegate:self.delegate];
     }
 }
