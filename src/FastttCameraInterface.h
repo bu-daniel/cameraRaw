@@ -5,7 +5,7 @@
 //  Created by Laura Skelton on 3/2/15.
 //
 //
-
+#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import "FastttCameraTypes.h"
 #import "FastttCapturedImage.h"
@@ -119,6 +119,11 @@
  *  Make sure to also set interfaceRotatesWithOrientation = YES, otherwise this property will be ignored.
  */
 @property (nonatomic, assign) UIDeviceOrientation fixedInterfaceOrientation;
+/**
+* iOS > 10 compatibility flow for taking RAW Images
+*/
+@property (nonatomic, assign) BOOL takeRawImage;
+@property (nonatomic, assign) NSArray<NSNumber *> *availableRawFormats;
 
 #pragma mark - Camera State
 
@@ -136,6 +141,9 @@
  *  The current torch mode.
  */
 @property (nonatomic, assign) FastttCameraTorchMode cameraTorchMode;
+
+
+- (instancetype)initWithRawOutput;
 
 /**
  *  Check if flash is available for the current camera device.
@@ -190,7 +198,7 @@
  *
  *  @param touchPoint The point at which to focus the camera, if point focus is available.
  *
- *  @return YES if the camera was able to focus, NO if not. You can use this response to decide whether or not 
+ *  @return YES if the camera was able to focus, NO if not. You can use this response to decide whether or not
  *  to show a custom UI indication that the camera is focusing.
  */
 - (BOOL)focusAtPoint:(CGPoint)touchPoint;
@@ -287,7 +295,7 @@
 
 #pragma mark - FastttCameraDelegate
 
-@protocol FastttCameraDelegate <NSObject>
+@protocol FastttCameraDelegate <AVCapturePhotoCaptureDelegate>
 
 @optional
 
