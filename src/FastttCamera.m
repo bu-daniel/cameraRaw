@@ -584,6 +584,7 @@
     } else {
 
          [_stillRawImageOutput capturePhotoWithSettings:_rawPhotoSettings delegate:self.delegate];
+         self.isCapturingImage = NO;
     }
 }
 
