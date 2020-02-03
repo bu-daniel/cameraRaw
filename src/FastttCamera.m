@@ -480,11 +480,6 @@
                     [_session addOutput:_stillRawImageOutput];
 
                     _availableRawFormats = [_stillRawImageOutput availableRawPhotoPixelFormatTypes];
-
-                    OSType *availableRawFormat = (((NSNumber *)self.availableRawFormats[0]).unsignedLongValue);
-
-
-                    _rawPhotoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:availableRawFormat];
                 }
 
 
@@ -583,7 +578,12 @@
 
     } else {
 
-         [_stillRawImageOutput capturePhotoWithSettings:_rawPhotoSettings delegate:self.delegate];
+        OSType *availableRawFormat = (((NSNumber *)self.availableRawFormats[0]).unsignedLongValue);
+
+         [_stillRawImageOutput
+            capturePhotoWithSettings:[AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:availableRawFormat]
+            delegate:self.delegate];
+
          self.isCapturingImage = NO;
     }
 }
